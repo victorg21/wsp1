@@ -1,0 +1,12 @@
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript">
+
+var ob = new Function('num','if(num==0) return 1; else return num*arguments.callee(num-1);');
+alert(ob(4));
+
+</script>
+</body>
+</html>

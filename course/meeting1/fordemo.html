@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    var ob = new Object();
+    ob.width = 3;
+    ob.height = 4;
+    */
+    function Rectangle(wVal,hVal)
+    {
+        this.width=wVal;
+        this.height=hVal;
+        /*
+        this.area=function()
+        {
+            return this.width*this.height;
+        }
+        */
+    }
+    Rectangle.prototype.area = function()
+    {
+        return this.width*this.height;
+    };
+    var ob = new Rectangle(3,4);
+    for(var temp in ob) {
+        document.write("<br/>"+temp);
+        document.write("<br/>"+ob[temp]);
+    }
+</script>
+</body>
+</html>

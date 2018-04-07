@@ -1,0 +1,47 @@
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript">
+// Multiple Function Names
+    let multi = (n1, n2) => {n1 * n2}
+    let multi_1 = multi;
+    let multi_2 = multi;
+    let multi_3 = multi;
+    let result = multi(2,3);
+    if(result === multi_1(2,3) && result === multi_2(2,3) && result === multi_3(2,3)) {
+        document.writeln("The function are equals </br>");
+    }else{
+        document.writeln("the function are not equals </br>");
+    }
+
+
+//Instantiate Function
+    let factorial = (n) => n < 2 ? 1 : n * factorial(n - 1);
+    document.writeln("5!=" +factorial(5) +" </br>");
+
+//umknown arguments
+    let unknown_arg = function(){
+        for(let i=0; i<arguments.length; i++) {
+            document.write(arguments[i] +" ,");
+        }
+        document.write(" </br>");
+    }
+    unknown_arg(2,3,4,5);
+
+//anonymous function
+    var a = 2;
+    (function(a, b){
+        var a = 4;
+
+        return {
+            multiply: function(){
+                return a*b;
+            }
+        }
+    })();
+    document.writeln(a +" </br>");
+
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<script type="text/javascript">
+
+
+    function sqrt(num)
+    {
+        function computeSolution(solution,number)
+        {
+            if(solutionOK(solution,number))
+            {
+                return solution;
+            }
+            else
+            {
+                return computeSolution(calculateBetterGuess(solution,number),number);
+            }
+        }
+        function solutionOK(solution,number)
+        {
+            return abs(solution*solution-number)<0.001;
+        }
+        function abs(num)
+        {
+            return (num>0)?num:-1*num;
+        }
+        function calculateBetterGuess(solution,number)
+        {
+            return (solution+number/solution)/2
+        }
+        return computeSolution(0.1,num);
+    }
+
+
+    document.writeln(sqrt(100));
+
+
+</script>
+

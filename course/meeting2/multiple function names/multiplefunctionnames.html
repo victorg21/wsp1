@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiple Functions Names Assignments</title>
+</head>
+<body>
+    <script>
+        //var f = function(a,b) {
+        //    return a+b;
+        //}
+        function f(a,v) {
+            return a+v;
+        }
+        var f1 = f;
+        var f2 = f;
+        var f3 = f;
+
+        var temp = f3(5,6);
+        document.write("temp="+temp);
+    </script>
+</body>
+</html>

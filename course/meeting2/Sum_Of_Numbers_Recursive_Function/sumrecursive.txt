@@ -1,0 +1,12 @@
+<script type="text/javascript">
+
+    function sum(a,b)
+    {
+        return (a>b)?0:(a+sum(a+1,b))
+    }
+
+    document.writeln(sum(2,5));
+
+
+</script>
+

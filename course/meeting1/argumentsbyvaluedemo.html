@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+
+        function Rectangle(wVal,hVal)
+        {
+            this.width=wVal;
+            this.height=hVal;
+            /*
+            this.area=function()
+            {
+                return this.width*this.height;
+            }
+            */
+        }
+
+        Rectangle.prototype.area = function()
+        {
+            return this.width*this.height;
+        };
+
+        var ob = new Rectangle(3,4);
+
+        function doSomething(rec) {
+
+            rec = new Rectangle(2,2);
+
+            //rec.width = 9;
+            //rec.height = 9;
+
+        }
+
+        doSomething(ob);
+
+        //document.write(ob["width"]);
+        document.write(ob.area());
+
+        if("area" in ob) {
+            document.write("area is available!");
+        }
+
+
+    </script>
+</body>
+</html>
