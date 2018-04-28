@@ -1,0 +1,15 @@
+<html>
+<head>
+    <script type="application/javascript">
+        var http = require('http');
+        http.createServer(function (req, res) {
+            res.writeHead(200, {'ContentType':'text/plain'});
+            res.end('<h1 style="color: red">Hello World from Cloud9</h1>\n');
+        }).listen(1331);
+    </script>
+</head>
+<body>
+    <h1>Start</h1>
+
+</body>
+</html>
