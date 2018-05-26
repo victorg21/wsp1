@@ -13,38 +13,13 @@ module.exports = {
 		return connection;
 	},
 
-	/*
-	* row: object contains data
-	*/
-	addRow: function (row) {
-
-		var connection = this.makeConnect();
-
-		var post = {
-			name: row.name,
-			address: row.address,
-			phone: row.phone,
-			id: row.id
-		}
-
-		connection.connect(function (err) {
-			if (err) throw err;
-			console.log("Connected!");
-			var sql = "INSERT INTO addressBook (name, address, phone, id) VALUES ('" + post.name + "','" + post.address + "','" + post.phone + "','" + post.id + "')";
-			console.log("sql =" + sql);
-			var query = connection.query(sql, function (err, result) {
-				if (err) throw err;
-				console.log("1 record inserted");
-			});
-			connection.end();
-		});
-	},
-
 	getContent: function (callback) {
-		console.log('[getContent] create connection to db');
+		console.log("[getContent] create connection to db");
 		var connection = this.makeConnect();
+
 		connection.on('error', function (err) {
 			console.log('[getContent] on connect error =' + err.toString());
+			callback("connection error " + err.toString());
 		});
 
 		console.log('[getContent] try connect to db');
@@ -66,8 +41,43 @@ module.exports = {
 							table.push({id: result[i].id, name: result[i].name});
 						}
 						connection.end();
-						console.log("[getContent] colse connection table=" + table);
+						console.log("[getContent] end connection table=" + table.length);
+						callback(table);
 					});
+			}
+		});
+	},
+
+	/*
+	* row: object contains data
+	*/
+	addRow: function (row, callback) {
+
+		var connection = this.makeConnect();
+
+		var post = {
+			name: row.name,
+			address: row.address,
+			phone: row.phone,
+			id: row.id
+		}
+
+		connection.connect(function (err) {
+			if (err){
+				callback("[addRow error] connection error " + err.toString());
+				//throw err;
+			} else{
+				var sql = "INSERT INTO addressBook (name, address, phone, id) VALUES ('" + post.name + "','" + post.address + "','" + post.phone + "','" + post.id + "')";
+				console.log("[addRow] query =" + sql);
+				var query = connection.query(sql, function (err, result) {
+					if (err){
+						callback("[addRow error] query error " + err.toString());
+						//throw err;
+					}
+					callback("[addRow success] 1 record inserted");
+				});
+				connection.end();
+				callback("[addRow success]");
 			}
 		});
 	}
