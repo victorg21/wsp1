@@ -8,7 +8,7 @@ var server = restify.createServer({
 	name : "restifysample"
 });
 
-server.listen(1400 ,'127.0.0.1', function(){
+server.listen(1400 ,'127.0.0.1', function() {
 	console.log('%s listening at %s ', server.name ,
 		server.url);
 });
@@ -16,8 +16,13 @@ server.listen(1400 ,'127.0.0.1', function(){
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
 
-function findStudent(req,res,next)
-{
+var PATH = '/students';
+server.get(PATH +'/:id', findStudent);
+server.get(PATH, findStudents);
+server.post(PATH, addStudent);
+server.del(PATH +'/delete/:id', deleteStudent);
+
+function findStudent(req,res,next) {
 	console.log("Start findStudent req.params.studid = " +req.params.studid);
 	var id = req.params.studid;
 
@@ -32,8 +37,7 @@ function findStudent(req,res,next)
 	return next();
 }
 
-function findStudents(req,res,next)
-{
+function findStudents(req,res,next) {
 	console.log("Start findStudents");
 	dbfun.getContent(
 		function(row){
@@ -45,8 +49,7 @@ function findStudents(req,res,next)
 	return next();
 }
 
-function addStudent(req,res,next)
-{
+function addStudent(req,res,next) {
 	var student = {};
 	student.id = req.body.id;
 	student.name = req.body.name;
@@ -65,12 +68,11 @@ function addStudent(req,res,next)
 	return next();
 }
 
-function deleteStudent(req,res,next)
-{
+function deleteStudent(req,res,next) {
 	var id = req.params.id;
 	console.log("Start deleteStudent req.params.id = "+id);
 	dbfun.delete({'id':id},
-			function() {
+		function() {
 			res.send(200, {'id': id, 'deleted': true});
 		},
 		function(obj){
@@ -78,10 +80,4 @@ function deleteStudent(req,res,next)
 		});
 	return next();
 }
-
-var PATH = '/students';
-server.get(PATH +'/:id', findStudent);
-server.get(PATH, findStudents);
-server.post(PATH, addStudent);
-server.del(PATH +'/delete/:id', deleteStudent);
 
