@@ -17,22 +17,25 @@ server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
 
 var PATH = '/students';
-server.get(PATH +'/:id', findStudent);
+server.get(PATH +'/:studid', findStudent);
 server.get(PATH, findStudents);
 server.post(PATH, addStudent);
 server.del(PATH +'/delete/:id', deleteStudent);
 
 function findStudent(req,res,next) {
-	console.log("Start findStudent req.params.studid = " +req.params.studid);
-	var id = req.params.studid;
-
-	dbfun.getContentOne(id,
-		function(row){
-			res.send(200, {'id':row.id, 'name':row.name, 'phone':row.phone, 'address':row.address});
-		},
-		function(obj){
-			res.send(200, obj)
-		})
+	var studid = req.params.studid;
+	console.log("Start findStudent req.params.studid = " +studid +" hh=" +isNaN(studid));
+	if(studid && !isNaN(studid)) {
+		dbfun.getContentOne(studid,
+			function(row){
+				res.send(200, {'id':row.id, 'name':row.name, 'phone':row.phone, 'address':row.address});
+			},
+			function(obj){
+				res.send(200, obj)
+			})
+	}else{
+		console.log("findStudent error studid = " +studid +" type=" +typeof studid);
+	}
 
 	return next();
 }
